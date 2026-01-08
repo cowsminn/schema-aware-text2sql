@@ -1,0 +1,24 @@
+T1 – Text-To-Sql
+
+Build a multi-step chain (using LangChain or other libraries at your choice) that:
+    • Accepts an NLP question,
+    • Generates a SQL query,
+    • Executes it,
+    • Summarizes the result in natural language.
+
+You should:
+Handle ambiguous or vague NLP input 
+    • use prompt engineering or schema-aware techniques to guide the LLM
+    • include schema context in the prompt;
+
+Compare SQL query generation across different LLMs
+    • evaluate differences in query accuracy, syntax, and logic;
+
+Handle errors and optimize using feedback
+    • add mechanisms to detect and correct invalid SQL
+    • implement user feedback loop (e.g., thumbs up/down, corrections)
+    • optionally explore few-shot or chain-of-thought prompting
+
+Test the solution on known benchmarks
+    • Use Spider or Bird to measure Exact match accuracy and Execution accuracy.
+Add UI (optional): simple web or CLI interface.

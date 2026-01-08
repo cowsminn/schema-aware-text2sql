@@ -1,0 +1,11 @@
+langchain
+langchain-groq
+langchain-core
+langchain-openai
+langchain-community
+langchain-experimental
+openai
+psycopg2-binary
+python-dotenv
+sqlalchemy
+ollama
