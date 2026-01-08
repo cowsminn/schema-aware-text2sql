@@ -1,0 +1,1 @@
+spider2-lite/resource/databases/*.sqlite filter=lfs diff=lfs merge=lfs -text
