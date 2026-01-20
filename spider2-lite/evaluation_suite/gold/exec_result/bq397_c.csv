@@ -1,7 +1,3 @@
-channelGrouping,COUNTRY_NAME,SUM_OF_TRANSACTIONS
-Direct,United States,6652
-Display,United States,203
-Organic Search,United States,3785
-Paid Search,United States,580
-Referral,United States,12280
-Social,United States,164
+version https://git-lfs.github.com/spec/v1
+oid sha256:3ac4fc962209e6b113fa17c09a618aa05190711b7040a6fda23ba457f1951394
+size 219

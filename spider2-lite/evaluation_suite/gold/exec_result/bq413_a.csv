@@ -1,12 +1,3 @@
-"COALESCE(
-    T1.""JOURNAL"":TITLE,
-    T1.""PROCEEDINGS_TITLE"",
-    T1.""BOOK_TITLE"",
-    T1.""BOOK_SERIES_TITLE""
-  )"
-"""Structural Chemistry"""
-"""BMC Pregnancy and Childbirth"""
-"""Human Vaccines & Immunotherapeutics"""
-"""Nephron"""
-"""Molecular Diversity"""
-"""World Academy of Sciences Journal"""
+version https://git-lfs.github.com/spec/v1
+oid sha256:63f7b1609ceb12d90c9482ca54f4697247d195ae07004d28333d9665c83b9d82
+size 308

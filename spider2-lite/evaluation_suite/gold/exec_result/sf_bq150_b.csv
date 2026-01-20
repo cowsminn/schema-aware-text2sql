@@ -1,2 +1,3 @@
-total_samples,num_mutation_types,mean_square_between_groups,mean_square_within_groups,F_statistic
-107,2,0.055361836445979945,0.061358552409836925,0.9022676427598446
+version https://git-lfs.github.com/spec/v1
+oid sha256:6940ed5f3a339f3f0dd28944f08fea1e390ae028004efd6064f69a6ac8245f55
+size 165

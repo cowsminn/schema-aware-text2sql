@@ -1,6 +1,3 @@
-"CAST(COUNT(DISTINCT T3.""CUSTOMER_ID"") AS REAL) * 100 / (
-    SELECT
-      COUNT(*)
-    FROM ""SQLITE_SAKILA"".""SQLITE_SAKILA"".""CUSTOMER""
-  )"
-99.1652754590985
+version https://git-lfs.github.com/spec/v1
+oid sha256:6d010cf196c1cf9df4dbc8c5a5ef43c512870ac233c91264a28eaea8d4c46e2d
+size 166

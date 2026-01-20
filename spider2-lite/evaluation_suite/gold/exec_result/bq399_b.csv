@@ -1,7 +1,3 @@
-region,country_name,avg_crude_birth_rate_1980s
-East Asia & Pacific,Brunei Darussalam,30.5327
-Europe & Central Asia,Greenland,20.66
-Latin America & Caribbean,Panama,28.6437
-Middle East & North Africa,Oman,45.9702
-North America,United States,15.83
-Sub-Saharan Africa,Seychelles,25.78
+version https://git-lfs.github.com/spec/v1
+oid sha256:522e114d13e40fad2b4458b02fed95037dcd208d06a45e6050b2f3be053b4a61
+size 282

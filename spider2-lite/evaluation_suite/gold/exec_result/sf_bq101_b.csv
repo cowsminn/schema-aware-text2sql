@@ -1,11 +1,3 @@
-package_name,frequency
-java.util,1846
-java.io,763
-org.junit,505
-org.slf4j,158
-android.view,144
-javax.xml.bind.annotation,143
-android.content,113
-android.widget,112
-java.util.concurrent,106
-javax.swing,97
+version https://git-lfs.github.com/spec/v1
+oid sha256:01d590d1e1ae209490fede700db8601f55780a1f3319713c7bd79fb881caf944
+size 204

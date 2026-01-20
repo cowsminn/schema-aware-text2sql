@@ -1,5 +1,3 @@
-CONTAINER_NAME,ITEM_NAME
-Pallet Mix MS,Bottle 500cl
-Pallet Mix SG,Bottle 500cl
-Pallet of L,Bottle 500cl
-Pallet of M,Bottle 330cl
+version https://git-lfs.github.com/spec/v1
+oid sha256:44cbe0fc3c486a69790f015ad4b0944b7214d04ac9e1be0f3b3ac098aaf9605f
+size 129

@@ -1,5 +1,3 @@
-METRIC,DIRECTION,complaint_type,CORRELATION
-count,positive,Street Sign - Dangling,0.36530998983166946
-count,negative,Vending,-0.25136704588197156
-proportion,positive,Street Sign - Dangling,0.35688157079477745
-proportion,negative,Sanitation Condition,-0.32245161160779745
+version https://git-lfs.github.com/spec/v1
+oid sha256:6f1b57953ab5b3ab05a0e537ec647902c62225bd74a3555e74dd5cd23368844e
+size 271

@@ -1,2 +1,3 @@
-"MAX(DATEDIFF(DAY, T1.FIRST_VISIT_DATE, T1.LAST_EVENT_DATE))"
-359
+version https://git-lfs.github.com/spec/v1
+oid sha256:44c719d8493276b082bfcea84958b2181851c9c05b02179bc20ea310a3b3e6dc
+size 66

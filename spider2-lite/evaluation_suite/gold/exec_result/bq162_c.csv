@@ -1,10 +1,3 @@
-Imaging_Assay_Type,Available_Data_Levels
-CODEX,"[
-  ""Level2""
-]"
-H&E,"[
-  ""Level2""
-]"
-IMC,"[
-  ""Level2""
-]"
+version https://git-lfs.github.com/spec/v1
+oid sha256:e74e764a25ad975bd673f1d3d622ea5c8ce47017415486826ae2ae6baa14d654
+size 112

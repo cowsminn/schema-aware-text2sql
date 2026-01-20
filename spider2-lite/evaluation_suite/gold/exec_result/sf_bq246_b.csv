@@ -1,2 +1,3 @@
-patent_id,patent_number,title,app_date,backward_1yr_count,forward_1yr_count,forward_3yr_count
-9775609,9775609,Tamper proof circuit for surgical instrument battery pack,2013-08-23,39,1,14
+version https://git-lfs.github.com/spec/v1
+oid sha256:fd32b4298cff8a84471b777c3a8cf1bfd2c8acf0c47a21ac64c1991178375a1a
+size 187

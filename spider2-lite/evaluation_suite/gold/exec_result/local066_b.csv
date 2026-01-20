@@ -1,13 +1,3 @@
-name,quantity
-Bacon,13
-Cheese,11
-Mushrooms,11
-Beef,9
-Chicken,9
-Pepperoni,9
-Salami,9
-BBQ Sauce,8
-Onions,3
-Peppers,3
-Tomato Sauce,3
-Tomatoes,3
+version https://git-lfs.github.com/spec/v1
+oid sha256:cab923a50ec2151f75792452874ef2e7fae3ee533a07e8f8725fd6355762f585
+size 141

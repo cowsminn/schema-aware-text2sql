@@ -1,11 +1,3 @@
-table_name,description,DDL
-STATE_FIPS,,"create or replace TABLE STATE_FIPS (
-	""state"" VARCHAR(16777216),
-	""postal_code"" VARCHAR(16777216),
-	""fips"" NUMBER(38,0)
-);"
-ZIP_CODES,,"create or replace TABLE ZIP_CODES (
-	""zip"" NUMBER(38,0),
-	""borough"" VARCHAR(16777216),
-	""neighborhood"" VARCHAR(16777216)
-);"
+version https://git-lfs.github.com/spec/v1
+oid sha256:070068fff153d51caef8ea527b1634045a34a04993c274e5373be8b7f8ce8a2e
+size 316

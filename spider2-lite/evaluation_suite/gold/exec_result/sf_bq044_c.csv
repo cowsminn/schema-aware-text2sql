@@ -1,4 +1,3 @@
-case_barcode,gender,vital_status,days_to_death,cdkn2a_mutation_types,MDM2_FPKM_UQ,TP53_FPKM_UQ,CDKN1A_FPKM_UQ,CCNE1_FPKM_UQ
-TCGA-DK-A3X1,female,Alive,,Nonsense_Mutation,,,,
-TCGA-FD-A6TI,male,Dead,294.0,Nonsense_Mutation,,,,
-TCGA-ZF-A9RD,female,Dead,408.0,Nonsense_Mutation,,,,
+version https://git-lfs.github.com/spec/v1
+oid sha256:08d0d8733365728659db1077ee5b6568a43866c87986fc3849366da2649ab3ca
+size 277

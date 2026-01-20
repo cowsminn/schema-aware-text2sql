@@ -1,2 +1,3 @@
-"SUM(POWER(O - (ROW_TOTAL * COL_TOTAL / GRAND_TOTAL), 2) / (ROW_TOTAL * COL_TOTAL / GRAND_TOTAL))"
-307.82024308691433
+version https://git-lfs.github.com/spec/v1
+oid sha256:f9736b3ad9533cf191532a3cf3cc95bfa2df27d742fda6a4e907495e5af80087
+size 118

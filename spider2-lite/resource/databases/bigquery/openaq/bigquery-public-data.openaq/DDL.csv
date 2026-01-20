@@ -1,16 +1,3 @@
-table_name,ddl
-global_air_quality,"CREATE TABLE `bigquery-public-data.openaq.global_air_quality`
-(
-  location STRING,
-  city STRING,
-  country STRING,
-  pollutant STRING,
-  value FLOAT64,
-  timestamp TIMESTAMP,
-  unit STRING,
-  source_name STRING,
-  latitude FLOAT64,
-  longitude FLOAT64,
-  averaged_over_in_hours FLOAT64,
-  location_geom GEOGRAPHY
-);"
+version https://git-lfs.github.com/spec/v1
+oid sha256:9dcea61861d3acf3ddbeb6c497b2ba25a242e87d303b33cd0769e22e83a10ca4
+size 353

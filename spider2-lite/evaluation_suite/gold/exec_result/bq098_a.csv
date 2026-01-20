@@ -1,7 +1,3 @@
-pickup_borough,percentage_no_tip
-Bronx,80.16813144822315
-Brooklyn,46.39794572182435
-EWR,52.136752136752136
-Manhattan,40.891834918929547
-Queens,39.286881097736753
-Staten Island,63.1578947368421
+version https://git-lfs.github.com/spec/v1
+oid sha256:f4323387e60b2d47f53741dd1309b747b28a6af9945cb19ed38824d3afda084c
+size 192

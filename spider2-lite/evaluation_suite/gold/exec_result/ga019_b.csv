@@ -1,5 +1,3 @@
-"(COUNT(CASE
-        WHEN U.UNINSTALL_TIMESTAMP IS NULL OR (U.UNINSTALL_TIMESTAMP - I.INSTALL_TIMESTAMP) > 7 * 24 * 60 * 60 * 1000000
-        THEN I.""USER_PSEUDO_ID""
-    END) * 100.0) / COUNT(I.""USER_PSEUDO_ID"")"
-74.777266
+version https://git-lfs.github.com/spec/v1
+oid sha256:70ba0d3de890f2d2a278505c90f3fdf7c04eeccc0979afd89088a419deb58224
+size 227

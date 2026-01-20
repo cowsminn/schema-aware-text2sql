@@ -1,4 +1,3 @@
-CLEANED_GITHUB_URL
-https://github.com/pypa/wheel
-https://github.com/astanin/python-tabulate
-https://github.com/numpy/numpy
+version https://git-lfs.github.com/spec/v1
+oid sha256:09b6801dd38807a4e3bd18afb2f1c3c7df1f6ba1a5be13f4831dcbc4f4e75d76
+size 123

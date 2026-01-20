@@ -1,2 +1,3 @@
-"CAST(COUNT(CASE WHEN T1.""PATH"" ILIKE '%README.MD%' AND T2.""CONTENT"" ILIKE '%COPYRIGHT (C)%' THEN 1 END) AS REAL) / COUNT(T1.""ID"")"
-0.0036101083032490976
+version https://git-lfs.github.com/spec/v1
+oid sha256:7ddbb9aff085da73d3e293a367eeffe2f6d59f93ec23049ef16d1958e1442fd0
+size 160

@@ -1,4 +1,3 @@
-block_number,from_address,to_address,amount
-24993917,THPvaUhoh2Qn2y9THCZML3H815hhFhn5YC,TKHuVq1oKVruCGLvqVexFs6dawKv6fQgFs,200000000.0
-24993888,T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb,THPvaUhoh2Qn2y9THCZML3H815hhFhn5YC,200000000.0
-53886040,TV6MuMXfmLbBqPZvBHdwFsDnQeVfnmiuSi,TYASr5UV6HEcXatwdFQfmLVUqQQQMUxHLS,120391990.27789
+version https://git-lfs.github.com/spec/v1
+oid sha256:522f20ca0ff7e530eb1a63c062e28cdc215399d7c0c562dcbdb24703dc4d7ac7
+size 320

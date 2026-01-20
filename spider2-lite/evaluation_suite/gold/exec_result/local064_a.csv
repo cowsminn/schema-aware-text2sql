@@ -1,2 +1,3 @@
-highest_month,highest_positive_count,highest_avg_balance,lowest_month,lowest_positive_count,lowest_avg_balance,average_difference
-1,424,557.704000,5,0,0.000000,557.704000
+version https://git-lfs.github.com/spec/v1
+oid sha256:500a9aa255bca20726cd09bb246f629cbd646a8add8fb1909392ecd09f93b297
+size 171

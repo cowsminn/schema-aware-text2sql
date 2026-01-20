@@ -1,31 +1,3 @@
-DRUG_NAME,TARGET_APPROVED_SYMBOL,CLINICAL_TRIAL_LINKS
-BEVACIZUMAB,VEGFA,"{
-  ""list"": [
-    {
-      ""element"": {
-        ""niceName"": ""ClinicalTrials"",
-        ""url"": ""https://clinicaltrials.gov/study/NCT01010126""
-      }
-    }
-  ]
-}"
-SAPANISERTIB,MTOR,"{
-  ""list"": [
-    {
-      ""element"": {
-        ""niceName"": ""ClinicalTrials"",
-        ""url"": ""https://clinicaltrials.gov/study/NCT02893930""
-      }
-    }
-  ]
-}"
-TEMSIROLIMUS,FKBP1A,"{
-  ""list"": [
-    {
-      ""element"": {
-        ""niceName"": ""ClinicalTrials"",
-        ""url"": ""https://clinicaltrials.gov/study/NCT01010126""
-      }
-    }
-  ]
-}"
+version https://git-lfs.github.com/spec/v1
+oid sha256:e4d4adeb54018c95a24254415a5712ea2aed91f71215157b26578d36784bbb16
+size 629

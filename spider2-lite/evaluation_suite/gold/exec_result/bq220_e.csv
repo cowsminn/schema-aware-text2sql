@@ -1,7 +1,3 @@
-Plot Type,Year,State,Average Size
-MACR,2015,California,4937.3
-MACR,2016,California,5128.2
-MACR,2017,California,5043.94
-SUBP,2015,Wyoming,7634.42
-SUBP,2016,Alaska,15679.88
-SUBP,2017,Wyoming,6284.79
+version https://git-lfs.github.com/spec/v1
+oid sha256:3ce8c90f482fc6682e9403fb4e3460e6cc3588d1e517d912907c20886228ea63
+size 197

@@ -1,15 +1,3 @@
-table_name,ddl
-waste_and_diversion,"CREATE TABLE `bigquery-public-data.austin_waste.waste_and_diversion`
-(
-  load_id INT64,
-  report_date DATE,
-  load_type STRING,
-  load_time TIMESTAMP,
-  load_weight FLOAT64,
-  dropoff_site STRING,
-  route_type STRING,
-  route_number STRING
-)
-OPTIONS(
-  description=""Austin waste and diversion""
-);"
+version https://git-lfs.github.com/spec/v1
+oid sha256:6dba3da5a5cb42cad32945e85be30e2f2d689185d6e74552212256f200be7683
+size 336

@@ -1,4 +1,3 @@
-CLEANED_GITHUB_URL
-https://github.com/redis/redis-py
-https://github.com/pypa/wheel
-https://github.com/numpy/numpy
+version https://git-lfs.github.com/spec/v1
+oid sha256:0bb88fbde5036abf1338c824a131558710f09ad151df629e653a373167e80a6c
+size 114

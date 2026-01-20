@@ -1,8 +1,3 @@
-"100.0 * SUM(
-        CASE
-            WHEN
-                ARRAY_SIZE(URL_PARTS) >= 5
-                AND GET(URL_PARTS, ARRAY_SIZE(URL_PARTS) - 1) LIKE '%+%'
-                AND (
-                    REPLACE(GET(URL_PARTS, 3)::STRING, '+', ' ') IN ('ACCE"
-17.218935
+version https://git-lfs.github.com/spec/v1
+oid sha256:5eb603a68f209b721cb4ab400b15fd0da3a9e05ab0c8ac21ef84b3c010257a8b
+size 268

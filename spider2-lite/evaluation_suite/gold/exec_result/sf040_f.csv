@@ -1,11 +1,3 @@
-NUMBER,STREET,CITY,STATE,ZIP
-,"6th St, , Hoa Kỳ",Florida City,FL,33034
-206,3rd,Okeechobee,FL,33034
-1677,8th,Doral,FL,33034
-,Vacant,Capesable,FL,33034
-41020,170,Unincorporated County,FL,33034
-601,Palm,Princeton,FL,33034
-35691,192nd,Homestead,FL,33034
-1328,Krome,Homestead,FL,33034
-1000,Palm,Homestead,FL,33034
-31810,228th,Homestead,FL,33034
+version https://git-lfs.github.com/spec/v1
+oid sha256:cfa5358cb546a737d6936c9fdead09f6f444d46dc2133b1ebc10d4279d3161b3
+size 342

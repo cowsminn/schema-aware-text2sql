@@ -1,7 +1,3 @@
-table_name,description,DDL
-NOAA_GFS0P25,,"create or replace TABLE NOAA_GFS0P25 (
-	""creation_time"" NUMBER(38,0),
-	""geography"" BINARY(8388608),
-	""geography_polygon"" BINARY(8388608),
-	""forecast"" VARIANT
-);"
+version https://git-lfs.github.com/spec/v1
+oid sha256:1b355a708291627d1bda7d067c15b44f116129479ea8100ad32a3f51ae7a9cd6
+size 214

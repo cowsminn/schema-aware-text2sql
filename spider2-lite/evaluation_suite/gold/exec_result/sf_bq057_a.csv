@@ -1,2 +1,3 @@
-month,pct_tx_coinjoin,pct_utxos_coinjoin,pct_volume_coinjoin
-12,1.7,13.3,5.1
+version https://git-lfs.github.com/spec/v1
+oid sha256:f4939a94fdd469dff0027a2f7618ac53dd987adb151e6668ba7911935b8c26e6
+size 77

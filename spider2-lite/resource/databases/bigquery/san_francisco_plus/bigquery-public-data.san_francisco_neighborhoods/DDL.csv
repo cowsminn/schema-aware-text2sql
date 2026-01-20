@@ -1,9 +1,3 @@
-table_name,ddl
-boundaries,"CREATE TABLE `bigquery-public-data.san_francisco_neighborhoods.boundaries`
-(
-  neighborhood STRING,
-  internal_point_latitude FLOAT64,
-  internal_point_longitude FLOAT64,
-  internal_point_geom GEOGRAPHY,
-  neighborhood_geom GEOGRAPHY
-);"
+version https://git-lfs.github.com/spec/v1
+oid sha256:7fe442b5234684362d92b2fe0d57c7b648b55f73c7a4883ef59c81f0cb8d034d
+size 265

@@ -1,11 +1,3 @@
-table_name,description,DDL
-POPULATION_GRID_1KM,,"create or replace TABLE POPULATION_GRID_1KM (
-	""country_name"" VARCHAR(16777216),
-	""geo_id"" VARCHAR(16777216),
-	""population"" FLOAT,
-	""longitude_centroid"" FLOAT,
-	""latitude_centroid"" FLOAT,
-	""alpha_3_code"" VARCHAR(16777216),
-	""geog"" BINARY(8388608),
-	""last_updated"" DATE
-);"
+version https://git-lfs.github.com/spec/v1
+oid sha256:a5523f9325ff5252ceb2e6346ffc120bd0847973236c28bc63d4bb7e64e79b9c
+size 340

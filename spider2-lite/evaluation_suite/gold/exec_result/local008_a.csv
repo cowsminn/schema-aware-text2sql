@@ -1,5 +1,3 @@
-METRIC_NAME,PLAYER_GIVEN_NAME,SCORE_VALUE
-games_played,Peter Edward,3562
-runs,Rickey Nelson Henley,2295
-hits,Peter Edward,4256
-home_runs,Barry Lamar,762
+version https://git-lfs.github.com/spec/v1
+oid sha256:89ca9045bc066b6f9e407b19bcf51f3972bf6d60c34cb423333ec675489ff9cc
+size 153

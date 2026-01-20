@@ -1,11 +1,3 @@
-TAG,TOTAL_SCORE
-html,2420
-http-headers,1850
-meta,1850
-penetration-testing,1850
-owasp,1850
-oauth-2.0,1755
-ios,1275
-php,1120
-javascript,985
-ringcentral,790
+version https://git-lfs.github.com/spec/v1
+oid sha256:820d45e27f89a76b82627576b3a88ae9ee05491fdcfdb59f4c14b2f1e39802fe
+size 154

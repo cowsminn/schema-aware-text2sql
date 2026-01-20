@@ -1,5 +1,3 @@
-product_id,aisle,position,QUANTITY_TO_PICK
-6520,A,16,22.0
-4280,B,3,30.0
-4280,C,20,30.0
-6520,D,9,18.0
+version https://git-lfs.github.com/spec/v1
+oid sha256:674a1e63a234810e0cedd5cb866b94177232be38c05e636bb08ef0a4756c8f01
+size 101

@@ -1,6 +1,3 @@
-"AVG(
-        ROUND(ABS(YEARS), 2) +
-        ROUND(ABS(MONTHS) / 12.0, 2) +
-        ROUND(ABS(DAYS) / 365.0, 2)
-    )"
-5.09966563
+version https://git-lfs.github.com/spec/v1
+oid sha256:187376265d7f3ec19f2361f9aa4a29ebdfef55b93ce382d22da635cb84b2a5ac
+size 130

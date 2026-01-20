@@ -1,7 +1,3 @@
-channelGrouping,geoNetwork_country,total_transactions
-Direct,United States,6650
-Display,United States,203
-Organic Search,United States,3785
-Paid Search,United States,580
-Referral,United States,12278
-Social,United States,164
+version https://git-lfs.github.com/spec/v1
+oid sha256:9bae835bf4e8f736575b07ef4d2251f1e306333d969bdef6c3d3525d024a3318
+size 224

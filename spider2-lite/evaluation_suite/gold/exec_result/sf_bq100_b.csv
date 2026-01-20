@@ -1,11 +1,3 @@
-PACKAGE_NAME,COUNT
-fmt,75
-strings,44
-time,41
-testing,35
-os,28
-bytes,27
-errors,23
-log,22
-sync,21
-io,21
+version https://git-lfs.github.com/spec/v1
+oid sha256:911adb105822bae395c9ed008165424a95b4cf03ef8190dc746c2df55a7be27d
+size 102

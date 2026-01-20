@@ -1,6 +1,3 @@
-System,License,PackageCount
-GO,MIT,40143
-MAVEN,APACHE-2.0,85135
-NPM,MIT,831975
-NUGET,NON-STANDARD,29088
-PYPI,MIT,26598
+version https://git-lfs.github.com/spec/v1
+oid sha256:b2bd97b2cf86f9577306c8508b3500660825249bb9cb74e91af478a46fae1ea2
+size 119

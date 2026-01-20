@@ -1,25 +1,3 @@
-table_name,ddl
-crime,"CREATE TABLE `bigquery-public-data.austin_crime.crime`
-(
-  unique_key INT64 OPTIONS(description=""Unique identifier for the record.""),
-  address STRING OPTIONS(description=""Full address where the incident occurred.""),
-  census_tract FLOAT64 OPTIONS(description=""""),
-  clearance_date TIMESTAMP OPTIONS(description=""""),
-  clearance_status STRING OPTIONS(description=""""),
-  council_district_code INT64 OPTIONS(description=""Indicates the council district code where the incident occurred.""),
-  description STRING OPTIONS(description=""The subcategory of the primary description.""),
-  district STRING OPTIONS(description=""Indicates the police district where the incident occurred.""),
-  latitude FLOAT64 OPTIONS(description=""""),
-  longitude FLOAT64 OPTIONS(description=""""),
-  location STRING OPTIONS(description=""""),
-  location_description STRING OPTIONS(description=""Description of the location where the incident occurred.""),
-  primary_type STRING OPTIONS(description=""The primary description of the NIBRS/UCR code.""),
-  timestamp TIMESTAMP OPTIONS(description=""Time when the incident occurred. This is sometimes a best estimate.""),
-  x_coordinate INT64 OPTIONS(description=""The x coordinate of the location where the incident occurred""),
-  y_coordinate INT64 OPTIONS(description=""The y coordinate of the location where the incident occurred""),
-  year INT64 OPTIONS(description=""Indicates the year in which the incident occurred.""),
-  zipcode STRING OPTIONS(description=""Indicates the zipcode where the incident occurred."")
-)
-OPTIONS(
-  description=""Austin Crime table""
-);"
+version https://git-lfs.github.com/spec/v1
+oid sha256:d5f52cd07b7ff0d1d931edf5a54a7edcbf0ea06f87d7c44cf06253fc437fd598
+size 1628

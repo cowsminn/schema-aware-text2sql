@@ -1,2 +1,3 @@
-both_mutated,kras_only,tp53_only,neither,total_patients,expected_both,expected_kras_only,expected_tp53_only,expected_neither,chi_squared_statistic
-86,27,14,28,155,72.903226,40.096774,27.096774,14.903226,24.46996432500303
+version https://git-lfs.github.com/spec/v1
+oid sha256:e88b0fa3c577538aa4510a1bab3216d4e1f908b2a93dd48814c060caaa704e25
+size 221

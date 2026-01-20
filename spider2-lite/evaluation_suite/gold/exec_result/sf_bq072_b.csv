@@ -1,8 +1,3 @@
-Age,Vehicle_Deaths_Total,Vehicle_Deaths_Black,Firearm_Deaths_Total,Firearm_Deaths_Black
-12,60,16,39,7
-13,71,12,71,15
-14,93,20,105,27
-15,133,23,164,58
-16,262,42,246,109
-17,341,43,341,167
-18,494,65,495,238
+version https://git-lfs.github.com/spec/v1
+oid sha256:6070a2c473baf938bba3d6ed0423e8369036b28704c9f426b2dbbbf4cac74dc5
+size 204

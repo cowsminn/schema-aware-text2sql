@@ -1,6 +1,3 @@
-System,Most_Frequent_License,PKG_COUNT
-GO,mit,40143
-MAVEN,apache-2.0,85135
-NPM,mit,831975
-NUGET,non-standard,29088
-PYPI,mit,26598
+version https://git-lfs.github.com/spec/v1
+oid sha256:df9c96fc12c11012235e4e8ba6b3920262975eca54490fe062956c0be6bd4269
+size 130

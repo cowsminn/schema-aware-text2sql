@@ -1,2 +1,3 @@
-forecast_date,max_temperature_f,min_temperature_f,avg_temperature_f,total_precipitation,avg_cloud_cover_10am_5pm,total_snowfall,total_rainfall
-2019-07-16,72.52410400390629,51.83388183593754,61.939660911560104,102.4375,47.0625,0.0,102.4375
+version https://git-lfs.github.com/spec/v1
+oid sha256:dd52217cad48c005b506f9c7aa8d4ad9b81d574777b44c67d64d2d4811d5f9bc
+size 239

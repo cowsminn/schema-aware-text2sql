@@ -1,4 +1,3 @@
-indicator_code,indicator_name,debt_value
-DT.AMT.DLXF.CD,"Principal repayments on external debt, long-term (AMT, current US$)",1035934181486.4001
-DT.AMT.DPPG.CD,"Principal repayments on external debt, public and publicly guaranteed (PPG) (AMT, current US$)",536000287737.6
-DT.AMT.PRVT.CD,"PPG, private creditors (AMT, current US$)",534820927877.60004
+version https://git-lfs.github.com/spec/v1
+oid sha256:7318e252b163f432e7a014d10aa162509e54f7b4e24d26aa31b93917a6513424
+size 349

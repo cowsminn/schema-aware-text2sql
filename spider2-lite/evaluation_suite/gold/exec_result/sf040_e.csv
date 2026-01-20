@@ -1,11 +1,3 @@
-address_number,street_name,street_type
-,"6th St, , Hoa Kỳ",
-206,3rd,Avenue
-31,1st,Avenue
-,Vacant,Land
-41020,170,Street
-601,Palm,Drive
-1328,Krome,Avenue
-1000,Palm,Drive
-31810,228th,Avenue
-31815,230th,Avenue
+version https://git-lfs.github.com/spec/v1
+oid sha256:c695e04c02298a22902ace17cf8ed47c14795deef0d15242ff0953de1cd5db0e
+size 219

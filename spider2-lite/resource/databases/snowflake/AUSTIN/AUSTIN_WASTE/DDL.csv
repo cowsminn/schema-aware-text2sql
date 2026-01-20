@@ -1,11 +1,3 @@
-table_name,description,DDL
-WASTE_AND_DIVERSION,,"create or replace TABLE WASTE_AND_DIVERSION (
-	""load_id"" NUMBER(38,0),
-	""report_date"" DATE,
-	""load_type"" VARCHAR(16777216),
-	""load_time"" NUMBER(38,0),
-	""load_weight"" FLOAT,
-	""dropoff_site"" VARCHAR(16777216),
-	""route_type"" VARCHAR(16777216),
-	""route_number"" VARCHAR(16777216)
-);"
+version https://git-lfs.github.com/spec/v1
+oid sha256:546e3b7ffd9120f06a8b94c876a52e987e6822e7d9b7e1642b3d9ed7789831b4
+size 346

@@ -1,4 +1,3 @@
-state_name,rainy_accidents,clear_accidents,accident_difference
-California,73,979,906
-Texas,68,895,827
-Florida,49,799,750
+version https://git-lfs.github.com/spec/v1
+oid sha256:b4592b727221e06a368f93a5e8929c5e3d930b81991067022da12194e29ebd5c
+size 121

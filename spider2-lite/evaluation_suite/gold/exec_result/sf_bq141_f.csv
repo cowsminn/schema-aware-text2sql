@@ -1,4 +1,3 @@
-case_barcode,PREDICTED_CLINICAL_STAGE
-TCGA-BQ-7061,Stage III
-TCGA-G7-6796,Stage III
-TCGA-SX-A71U,Stage IV
+version https://git-lfs.github.com/spec/v1
+oid sha256:56b4c4361f4df9005b8426401226a433f89e9fca7104111e7cd99ad90520fdda
+size 106

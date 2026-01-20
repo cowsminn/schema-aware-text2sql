@@ -1,9 +1,3 @@
-"CAST(AVG(
-    ROUND(
-      ABS(
-        STRFTIME('%J', final_game) - STRFTIME('%J', debut)
-      ) / 365.25,
-      2
-    )
-  ) AS REAL)"
-4.82426312121374
+version https://git-lfs.github.com/spec/v1
+oid sha256:575c7430f19b1d6a136c6f446014e0776ea166bb6ead3d275ffbf4c954693907
+size 155

@@ -1,2 +1,3 @@
-"SUM(CASE WHEN ""AGE"" = ""MAX_AGE"" THEN 1 ELSE 0 END) - SUM(CASE WHEN ""AGE"" = ""MIN_AGE"" THEN 1 ELSE 0 END)"
-11
+version https://git-lfs.github.com/spec/v1
+oid sha256:6806296f28153c0bbb2c6851877744a2ba385e8b97fb42a097cc0a8bb1fef02e
+size 117

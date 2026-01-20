@@ -1,2 +1,3 @@
-max_month,max_positive_customers,avg_balance_max_month,min_month,min_positive_customers,avg_balance_min_month,average_balance_difference
-2020-01,424,557.704000,2020-05,0,0.000000,557.704000
+version https://git-lfs.github.com/spec/v1
+oid sha256:dec7e4121cca37fbc2382cc8cc6ee1aeaef25db34fb2b48402cb535a5a6529c0
+size 190

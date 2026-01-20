@@ -1,4 +1,3 @@
-county_name,state,median_age,total_population,cases_per_100k,deaths_per_100k,case_fatality_rate_percent
-Franklin County,MA,47.0,70529.0,605.4,89.3,14.75
-Sussex County,NJ,44.9,140996.0,980.9,139.7,14.24
-Middlesex County,CT,45.8,162742.0,883.6,118.0,13.35
+version https://git-lfs.github.com/spec/v1
+oid sha256:bc59bffd040c251a6fd710a0a872383fed81bc7344d7efa44530e8377dedfae3
+size 254

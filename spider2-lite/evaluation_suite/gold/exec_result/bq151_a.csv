@@ -1,2 +1,3 @@
-Total_Patients,KRAS_and_TP53_Mutated_Count,KRAS_only_Count,TP53_only_Count,Neither_Mutated_Count,KRAS_and_TP53_Mutated_Freq,KRAS_only_Freq,TP53_only_Freq,Chi_Squared_Statistic
-174,90,27,17,40,0.5172413793103449,0.15517241379310345,0.09770114942528736,35.90590051746639
+version https://git-lfs.github.com/spec/v1
+oid sha256:b6e352dcecc177a8dc5e1f1d854b4712dbdc581bea3c2a15d666528de9b637c9
+size 269

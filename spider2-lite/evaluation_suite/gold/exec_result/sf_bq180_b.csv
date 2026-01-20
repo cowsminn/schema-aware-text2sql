@@ -1,6 +1,3 @@
-MODULE,FREQUENCY
-django,263
-os,167
-sys,125
-__future__,122
-numpy,80
+version https://git-lfs.github.com/spec/v1
+oid sha256:f7d02e14b5dfcd548ae16052cd6fbc215a3f687d1afcb3a08eae4d860d8eff77
+size 67

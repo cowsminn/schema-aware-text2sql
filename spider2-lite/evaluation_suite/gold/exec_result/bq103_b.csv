@@ -1,2 +1,3 @@
-num_variants,total_number_of_alleles,total_allele_count,distinct_gene_symbols,mutation_density_bp_per_variant
-5604,790936430,7917038,"PCSK9,USP24",4.533547
+version https://git-lfs.github.com/spec/v1
+oid sha256:9da05d0c2ab3bc3073d339cd7605e3ffb57d6431fa67e91a4b76ce26e46596cd
+size 156

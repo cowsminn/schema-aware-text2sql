@@ -1,9 +1,3 @@
-condition_name,condition_code
-Coronary Heart Disease,53741008
-Acute viral pharyngitis (disorder),195662009
-Atrial Fibrillation,49436004
-Hypertension,38341003
-Viral sinusitis (disorder),444814009
-Perennial allergic rhinitis,446096008
-Contact dermatitis,40275004
-Body mass index 30+ - obesity (finding),162864005
+version https://git-lfs.github.com/spec/v1
+oid sha256:c8e0a66845aa02aa11e408d800816621e7d6a56d06dcdcb9dc30e34976bc291d
+size 311

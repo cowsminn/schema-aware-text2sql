@@ -1,3 +1,3 @@
-drug_id,drug_type,withdrawal_status
-CHEMBL122,Small molecule,True
-CHEMBL1201580,Antibody,False
+version https://git-lfs.github.com/spec/v1
+oid sha256:1eddc387d937fa43b36572e6d636939a36a62c57c2318a98c97a1d2181d1fab8
+size 95

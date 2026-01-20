@@ -1,14 +1,3 @@
-table_name,description,DDL
-FILM_LOCATIONS,,"create or replace TABLE FILM_LOCATIONS (
-	""title"" VARCHAR(16777216),
-	""release_year"" NUMBER(38,0),
-	""locations"" VARCHAR(16777216),
-	""fun_facts"" VARCHAR(16777216),
-	""production_company"" VARCHAR(16777216),
-	""distributor"" VARCHAR(16777216),
-	""director"" VARCHAR(16777216),
-	""writer"" VARCHAR(16777216),
-	""actor_1"" VARCHAR(16777216),
-	""actor_2"" VARCHAR(16777216),
-	""actor_3"" VARCHAR(16777216)
-);"
+version https://git-lfs.github.com/spec/v1
+oid sha256:4370fbb915bb8fdbf481a5fc7808855ea350092b45ca9fa77e63ad4211ae7dd2
+size 459

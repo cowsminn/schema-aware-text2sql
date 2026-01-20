@@ -1,8 +1,3 @@
-table_name,ddl
-fulltext,"CREATE TABLE `bigquery-public-data.bbc_news.fulltext`
-(
-  body STRING,
-  title STRING,
-  filename STRING,
-  category STRING
-);"
+version https://git-lfs.github.com/spec/v1
+oid sha256:330cdd09063ab90555abde4ef7c09b60982a32baab7a72109aedf38a443d8514
+size 153

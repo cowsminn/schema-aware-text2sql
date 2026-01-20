@@ -1,4 +1,3 @@
-case_barcode,PREDICTED_CLINICAL_STAGE
-TCGA-BQ-5877,Stage I
-TCGA-BQ-5891,Stage I
-TCGA-IZ-A6M8,Stage I
+version https://git-lfs.github.com/spec/v1
+oid sha256:d4c5c5c5bc6d1f1e222e36d93c4595f09cd705df2246a82fe630562418e9c527
+size 101

@@ -1,5 +1,3 @@
-trip_year,status,"COUNT(T1.""STATION_ID"")"
-2013,active,10
-2013,closed,1
-2014,active,38
-2014,closed,9
+version https://git-lfs.github.com/spec/v1
+oid sha256:ad1e173904f29e2a63d1897f30cd712bdbf5ccc117c4388d662f25d5c50b8172
+size 102

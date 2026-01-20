@@ -1,9 +1,3 @@
-PACKAGENAME,Version
-@dylanvann/svelte,3.25.4
-@dumc11/tailwindcss,0.4.0
-@dman777/shadow-dom-quill-temp,1.0.0
-@dynasty/styled-components,3.2.1
-@dothq/styled-components,1.0.0
-@ec-nordbund/leaflet,1.7.1
-@dudadev/mobx-react,6.1.12
-@dplus/themed,4.0.2
+version https://git-lfs.github.com/spec/v1
+oid sha256:adcf23da568a29ec66491d96028b72fa2cbfab51215a1b2bf42928893f852816
+size 246

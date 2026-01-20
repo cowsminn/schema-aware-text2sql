@@ -1,11 +1,3 @@
-CATEGORY,state_name,county,APPEARANCES,RANK
-STATE,New York,,89,1
-STATE,California,,70,2
-STATE,New Jersey,,63,3
-STATE,Illinois,,55,4
-STATE,Massachusetts,,50,5
-COUNTY,Illinois,Cook,92,1
-COUNTY,Illinois,Lake,79,2
-COUNTY,Illinois,DuPage,76,3
-COUNTY,Illinois,Kane,70,4
-COUNTY,Illinois,Will,62,5
+version https://git-lfs.github.com/spec/v1
+oid sha256:00f98087e8c289c2a0aea25441cb74bfd824ee477533cf0c3e916d55afd1d929
+size 290

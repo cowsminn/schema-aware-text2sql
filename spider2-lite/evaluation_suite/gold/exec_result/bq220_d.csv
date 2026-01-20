@@ -1,7 +1,3 @@
-PLOT_TYPE,inventory_year,STATE,AVG_SIZE
-Macroplot,2015,California,4937.295863300523
-Macroplot,2016,California,5128.199385365012
-Macroplot,2017,California,5043.9370607363635
-Subplot,2015,Wyoming,7634.419129440116
-Subplot,2016,Alaska,15679.879103970125
-Subplot,2017,Wyoming,6284.792518170388
+version https://git-lfs.github.com/spec/v1
+oid sha256:8a72a91486986d0c6a191aaf277bd138088bdf9e813a093480f6fea55023f2af
+size 290
