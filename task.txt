@@ -22,3 +22,11 @@ Handle errors and optimize using feedback
 Test the solution on known benchmarks
     • Use Spider or Bird to measure Exact match accuracy and Execution accuracy.
 Add UI (optional): simple web or CLI interface.
+
+Repository must include:
+    • Functional source code
+    • A README/wiki containing:
+        ◦ Technical documentation: system architecture, data model, software/hardware configurations, VM usage (if any), tool versions, relevant code snippets, screenshots of code execution and tool outputs, tabular comparisons of results/tools, interpretations, and bibliographic references (properly cited in-text).
+        ◦ Diagrams must be created using dedicated tools (e.g. https://app.diagrams.net, https://www.lucidchart.com, yEd, Microsoft Visio, etc.). Hand-drawn or scanned images are not accepted.
+    • A presentation (PowerPoint, Keynote, Canva, Remark.js + Markdown + KaTeX, etc.) summarizing the documentation (max. 10 slides).
+    • Video demonstrations of code execution (e.g. YouTube, Microsoft Stream).

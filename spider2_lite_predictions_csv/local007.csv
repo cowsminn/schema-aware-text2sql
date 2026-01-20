@@ -1,0 +1,9 @@
+"CAST(AVG(
+    ROUND(
+      ABS(
+        STRFTIME('%J', final_game) - STRFTIME('%J', debut)
+      ) / 365.25,
+      2
+    )
+  ) AS REAL)"
+4.82426312121374
