@@ -112,13 +112,29 @@ python main.py --compare --question "Your question"
 python main.py --spider2-lite ./spider2-lite --max-questions 5
 ```
 
+## Execution Screenshots
+
+![1](img/2.png)
+![2](img/3.png)
+![3](img/4.png)
+
+
 ## Why Pandas
 
 Despite Pandas' known limitations with very large datasets, it's ideal for our moderate-sized lists with thousands of entries. The combination of readable code and sufficient performance makes it the optimal choice for this specific data processing task.
 
 ![1.png](img/1.png)
+
 ## Video Demonstration
 
+[![demo](https://img.youtube.com/vi/eUc5V2GvTuY/0.jpg)](https://youtu.be/eUc5V2GvTuY)
+
+## Limitations
+
+1. **Database Support**: Currently limited to SQLite (Spider2-Lite subset)
+2. **Query Complexity**: Performance degrades on highly complex nested queries
+3. **Schema Size**: Large schemas may exceed context window limits
+4. **API Dependencies**: Cloud models require stable internet and API keys
 
 ## Resources
 
