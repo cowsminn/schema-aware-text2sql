@@ -1,4 +1,4 @@
-Evaluating SQL:   0%|          | 0/5 [00:00<?, ?it/s][local003] An error occurred: Execution failed on sql 'WITH CustomerOrderTotals AS (
+Evaluating SQL:   0%|          | 0/10 [00:00<?, ?it/s]Evaluating SQL:  10%|#         | 1/10 [00:00<00:03,  2.68it/s]Evaluating SQL:  30%|###       | 3/10 [00:00<00:01,  5.89it/s]Evaluating SQL:  40%|####      | 4/10 [00:01<00:02,  2.85it/s][local003] An error occurred: Execution failed on sql 'WITH CustomerOrderTotals AS (
   SELECT
     c.customer_unique_id,
     o.order_id,
@@ -56,10 +56,10 @@ GROUP BY
   RFM_Segment
 ORDER BY
   RFM_Segment;': ambiguous column name: order_id
-Evaluating SQL:  20%|##        | 1/5 [00:00<00:02,  1.59it/s]Evaluating SQL:  40%|####      | 2/5 [00:00<00:01,  2.95it/s]Evaluating SQL:  60%|######    | 3/5 [00:00<00:00,  3.49it/s]Evaluating SQL:  80%|########  | 4/5 [00:01<00:00,  3.07it/s]Evaluating SQL: 100%|##########| 5/5 [00:02<00:00,  2.19it/s]Evaluating SQL: 100%|##########| 5/5 [00:02<00:00,  2.42it/s]
-{'local002': 1, 'local003': 0, 'local004': 1, 'local007': 1, 'local008': 0}
-Final score: 0.6, Correct examples: 3, Total examples: 5
-Real score: 0.005484460694698354, Correct examples: 3, Total examples: 547
+Evaluating SQL:  70%|#######   | 7/10 [00:01<00:00,  5.47it/s]Evaluating SQL:  90%|######### | 9/10 [00:02<00:00,  3.63it/s]Evaluating SQL: 100%|##########| 10/10 [00:02<00:00,  3.95it/s]Evaluating SQL: 100%|##########| 10/10 [00:02<00:00,  3.98it/s]
+{'local003': 0, 'local004': 1, 'local008': 0, 'local017': 0, 'local019': 0, 'local022': 1, 'local023': 0, 'local029': 1, 'local038': 0, 'local039': 1}
+Final score: 0.4, Correct examples: 4, Total examples: 10
+Real score: 0.007312614259597806, Correct examples: 4, Total examples: 547
 Execution results saved to: /home/cowsmin/Downloads/schema-aware-text2sql/spider2_lite_predictions_csv
 Correct IDs saved to: /home/cowsmin/Downloads/schema-aware-text2sql/spider2_lite_predictions-ids.csv
 TOTAL_GB_PROCESSED: 0.00000 GB

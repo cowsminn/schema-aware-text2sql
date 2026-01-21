@@ -7,14 +7,14 @@ from langchain_core.prompts import ChatPromptTemplate
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from langchain_openai import ChatOpenAI
-from pathlib import Path  # FIXED: from pathlib import Path
+from pathlib import Path
 import os
 import argparse
 import json
 import re
 
 # sql lite local, nu am credidentiale pt google cloud(bigquery) sau snowflake(sf_bq)
-#100k tokens pe grok, deci aprox 25k cuvinte
+#100k tokens pe grok, 1 cuvant = 1,4 * tokens
 
 load_dotenv()
 
@@ -49,12 +49,10 @@ class EvaluationResult(BaseModel):
 #     return SQLDatabase(engine)
 
 def get_db():
-    """Get database connection with proper date handling."""
     from sqlalchemy.pool import StaticPool
     from sqlalchemy import event, text
     import os
     
-    # Use absolute path to db folder
     db_path = os.path.join(os.path.dirname(__file__), "db", "netflixdb.sqlite")
     
     engine = create_engine(
@@ -70,7 +68,6 @@ def get_db():
         cursor.execute("PRAGMA parse_time=0")
         cursor.close()
     
-    # Always use without sample rows to avoid date conversion issues
     return SQLDatabase(engine, sample_rows_in_table_info=0)
 
 system_message = """
@@ -364,71 +361,6 @@ def evaluate_on_spider(spider_json_path: str, max_questions: int = 10):
     
     return results
 
-def evaluate_on_spider_benchmark(spider_dir: str, max_questions: int = None):
-    """Evaluate on official Spider benchmark with proper metrics."""
-    # Import doar când este necesar
-    from spider_evaluator import SpiderBenchmarkEvaluator
-    
-    evaluator = SpiderBenchmarkEvaluator(spider_dir)
-    spider_data = evaluator.load_dataset('dev')
-    
-    if max_questions:
-        spider_data = spider_data[:max_questions]
-    
-    predictions = []
-    
-    for i, item in enumerate(spider_data):
-        print(f"\n🔄 Procesez {i+1}/{len(spider_data)}: {item['question']}")
-        
-        try:
-            # Folosește baza de date specificată în Spider
-            db_id = item['db_id']
-            db_path = evaluator.database_dir / db_id / f"{db_id}.sqlite"
-            
-            # Schimbă temporar baza de date
-            global get_db
-            original_get_db = get_db
-            
-            def get_spider_db():
-                from sqlalchemy import create_engine
-                from sqlalchemy.pool import StaticPool
-                engine = create_engine(
-                    f"sqlite:///{db_path}",
-                    connect_args={'check_same_thread': False},
-                    poolclass=StaticPool
-                )
-                return SQLDatabase(engine, sample_rows_in_table_info=0)
-            
-            get_db = get_spider_db
-            
-            # Generează SQL
-            state = State(question=item['question'])
-            write_query(state)
-            
-            predictions.append({
-                'question': item['question'],
-                'db_id': db_id,
-                'predicted_query': state.query,
-                'gold_query': item['query']
-            })
-            
-            # Restabilește get_db original
-            get_db = original_get_db
-            
-        except Exception as e:
-            print(f"❌ Eroare la întrebarea {i}: {e}")
-            predictions.append({
-                'question': item['question'],
-                'db_id': item.get('db_id', 'unknown'),
-                'predicted_query': "",
-                'gold_query': item['query']
-            })
-    
-    # Evaluează toate predicțiile
-    metrics = evaluator.evaluate_predictions(predictions)
-    
-    return metrics, predictions
-
 def load_few_shot_examples(eval_suite_dir: Path, num_examples: int = 3):
     """Încarcă câteva exemple gold SQL pentru few-shot learning."""
     gold_sql_dir = eval_suite_dir / "gold" / "sql"
@@ -497,6 +429,11 @@ def evaluate_on_spider2_lite(spider2_lite_dir: str, max_questions: int = None, p
     few_shot_examples = load_few_shot_examples(eval_suite_dir, num_examples=2)
     print(f"✅ Încărcate {len(few_shot_examples)} exemple gold SQL")
     
+    # ADDED: Încarcă lista de instance_id care au gold SQL
+    gold_sql_dir = eval_suite_dir / "gold" / "sql"
+    gold_instance_ids = {f.stem for f in gold_sql_dir.glob("local*.sql")}
+    print(f"✅ Găsite {len(gold_instance_ids)} exemple cu gold SQL")
+    
     # Încarcă date
     print(f"\n📖 Încărcare date din {data_file}...")
     data = []
@@ -507,19 +444,27 @@ def evaluate_on_spider2_lite(spider2_lite_dir: str, max_questions: int = None, p
     
     print(f"✅ Încărcate {len(data)} exemple total")
     
-    # Filtrează doar exemple care au baze de date SQLite disponibile
+    # Filtrează doar exemple care au baze de date SQLite disponibile ȘI gold SQL
     sqlite_data = []
     available_dbs = {f.stem for f in sqlite_files}
     
     for item in data:
         db_name = item['db']
+        instance_id = item['instance_id']
+        
+        # Skip non-SQLite databases
         if db_name.startswith(('bigquery', 'snowflake', 'ga4', 'ga360', 'firebase')):
+            continue
+        
+        # ADDED: Skip dacă nu are gold SQL pentru evaluare
+        if instance_id not in gold_instance_ids:
+            print(f"⚠️  Skip {instance_id} - nu are gold SQL pentru evaluare")
             continue
         
         if db_name in available_dbs:
             sqlite_data.append(item)
     
-    print(f"✅ Filtrate {len(sqlite_data)} exemple cu baze de date SQLite disponibile")
+    print(f"✅ Filtrate {len(sqlite_data)} exemple cu baze de date SQLite ȘI gold SQL")
     
     if max_questions:
         sqlite_data = sqlite_data[:max_questions]
@@ -819,93 +764,47 @@ def run_pipeline_with_feedback(question: str):
     
     return result, feedback
 
-def load_spider_dataset(spider_dir: str):
-    """Load Spider dataset and database schemas."""
-    with open(os.path.join(spider_dir, "dev.json"), "r") as f:
-        dev_data = json.load(f)
-    with open(os.path.join(spider_dir, "tables.json"), "r") as f:
-        tables_data = json.load(f)
-    return dev_data, tables_data
-
-def get_spider_db_path(spider_dir: str, db_id: str):
-    """Get the path to the SQLite database for a given Spider database ID."""
-    return os.path.join(spider_dir, "database", db_id, f"{db_id}.sqlite")
-
-def evaluate_spider_dataset(spider_dir: str, max_questions: int = None):
-    """Evaluate the Text-to-SQL pipeline on the Spider dataset."""
-    dev_data, tables_data = load_spider_dataset(spider_dir)
-    if max_questions:
-        dev_data = dev_data[:max_questions]
-
-    results = []
-    for i, item in enumerate(dev_data):
-        print(f"Evaluating question {i + 1}/{len(dev_data)}: {item['question']}")
-        db_id = item["db_id"]
-        db_path = get_spider_db_path(spider_dir, db_id)
-
-        # Temporarily override the get_db function to use the Spider database
-        global get_db
-        original_get_db = get_db
-
-        def get_spider_db():
-            from sqlalchemy import create_engine
-            from sqlalchemy.pool import StaticPool
-            engine = create_engine(
-                f"sqlite:///{db_path}",
-                connect_args={"check_same_thread": False},
-                poolclass=StaticPool
-            )
-            return SQLDatabase(engine, sample_rows_in_table_info=0)
-
-        get_db = get_spider_db
-
-        try:
-            state = State(question=item["question"])
-            write_query(state)
-
-            # Check exact match
-            exact_match = state.query.strip().lower() == item["query"].strip().lower()
-
-            execute_query(state)
-            execution_accuracy = "error" not in state.result.lower()
-
-            results.append(EvaluationResult(
-                question=item["question"],
-                query_ground_truth=item["query"],
-                query_generated=state.query,
-                exact_match=exact_match,
-                execution_accuracy=execution_accuracy
-            ))
-        except Exception as e:
-            print(f"Error evaluating question {i + 1}: {e}")
-        finally:
-            # Restore the original get_db function
-            get_db = original_get_db
-
-    return results
+def load_few_shot_examples(eval_suite_dir: Path, num_examples: int = 3):
+    """Încarcă câteva exemple gold SQL pentru few-shot learning."""
+    gold_sql_dir = eval_suite_dir / "gold" / "sql"
+    
+    few_shot_examples = []
+    
+    # Selectează exemple gold SQL
+    gold_files = list(gold_sql_dir.glob("local*.sql"))[:num_examples]
+    
+    for sql_file in gold_files:
+        instance_id = sql_file.stem
+        sql_content = sql_file.read_text()
+        
+        # Încearcă să găsească întrebarea corespunzătoare
+        few_shot_examples.append({
+            'instance_id': instance_id,
+            'sql': sql_content
+        })
+    
+    return few_shot_examples
 
 def main():
-    parser = argparse.ArgumentParser(description="Interfață Text-to-SQL")
-    parser.add_argument("--question", type=str, help="Întrebare în limbaj natural")
-    parser.add_argument("--compare", action="store_true", help="Compară LLM-uri diferite")
-    parser.add_argument("--interactive", action="store_true", help="Mod interactiv")
-    parser.add_argument("--feedback", action="store_true", help="Activează feedback loop")
-    parser.add_argument("--evaluate", type=str, help="Calea către fișierul JSON Spider")
-    parser.add_argument("--spider-benchmark", type=str, help="Calea către directorul Spider")
-    parser.add_argument("--spider2-lite", type=str, help="Calea către directorul Spider2-Lite")
-    parser.add_argument("--max-questions", type=int, default=None, help="Număr maxim de întrebări")
+    parser = argparse.ArgumentParser(description="text2sql cli interface")
+    parser.add_argument("--question", type=str, help="natural language question")
+    parser.add_argument("--compare", action="store_true", help="compare different LLMs")
+    parser.add_argument("--interactive", action="store_true", help="interactive mode")
+    parser.add_argument("--feedback", action="store_true", help="enable feedback loop")
+    parser.add_argument("--evaluate", type=str, help="path to Spider JSON file")
+    parser.add_argument("--spider2-lite", type=str, help="path to Spider2-Lite directory")
+    parser.add_argument("--max-questions", type=int, default=None, help="maximum questions")
     parser.add_argument("--llm", type=str, default="groq", 
                        choices=["groq", "ollama", "ollama3.2", "ollama-qwen", "gemini", "cohere"],
-                       help="LLM de folosit pentru generarea SQL (default: groq)")
+                       help="default: groq")
      
     args = parser.parse_args()
     
-    # Afișează LLM-ul selectat
     if not args.compare:
-        print(f"🤖 LLM selectat: {args.llm.upper()}")
+        print(f"🤖 LLM: {args.llm.upper()}")
     
     if args.spider2_lite:
-        print("🚀 Rulează evaluarea Spider2-Lite...")
+        print("🚀 Running Spider2-Lite evaluation...")
         result = evaluate_on_spider2_lite(
             args.spider2_lite, 
             args.max_questions,
@@ -913,71 +812,38 @@ def main():
         )
         
         if not result:
-            print("\n❌ Evaluarea a eșuat - verifică bazele de date SQLite")
+            print("\n❌ Evaluation failed - check SQLite databases")
             return
         
         print("\n" + "="*60)
-        print("✅ EVALUARE COMPLETĂ")
+        print("✅ COMPLETE EVALUATION")
         print("="*60)
-        print(f"Predicții salvate în: {result['predictions_file']}")
-        print(f"Total predicții: {len(result['predictions'])}")
+        print(f"Predictions saved to: {result['predictions_file']}")
+        print(f"Total predictions: {len(result['predictions'])}")
         
         if 'final_score' in result:
-            print(f"\n🎯 SCOR FINAL: {result['final_score']:.2%}")
+            print(f"\n🎯 FINAL SCORE: {result['final_score']:.2%}")
         
         if 'evaluation_output' in result and result['evaluation_output']:
-            print("\n📊 REZULTATE EVALUARE OFICIALĂ:")
+            print("\n📊 OFFICIAL EVALUATION RESULTS:")
             for line in result['evaluation_output'].split('\n'):
                 if 'Final score' in line or 'Correct examples' in line or 'Total examples' in line:
                     print(f"   {line}")
         
         return
     
-    if args.spider_benchmark:
-        print("🚀 Rulează evaluarea Spider Benchmark...")
-        metrics, predictions = evaluate_on_spider_benchmark(
-            args.spider_benchmark, 
-            args.max_questions
-        )
-        
-        print("\n" + "="*60)
-        print("📊 REZULTATE SPIDER BENCHMARK")
-        print("="*60)
-        print(f"Exact Match Accuracy: {metrics['exact_match_accuracy']:.2%}")
-        print(f"Execution Accuracy: {metrics['execution_accuracy']:.2%}")
-        print(f"Total Întrebări: {metrics['total']}")
-        
-        print("\n📈 Pe Nivel de Dificultate:")
-        for level in ['easy', 'medium', 'hard', 'extra']:
-            stats = metrics['by_difficulty'][level]
-            if stats['count'] > 0:
-                print(f"\n{level.upper()}:")
-                print(f"  Număr: {stats['count']}")
-                print(f"  Exact Match: {stats['exact_pct']:.2%}")
-                print(f"  Execution: {stats['exec_pct']:.2%}")
-        
-        output_file = "spider_evaluation_results.json"
-        with open(output_file, 'w', encoding='utf-8') as f:
-            json.dump({
-                'metrics': metrics,
-                'predictions': predictions
-            }, f, indent=2, ensure_ascii=False)
-        print(f"\n💾 Rezultate salvate în {output_file}")
-        
-        return
-    
     if args.evaluate:
         results = evaluate_on_spider(args.evaluate, args.max_questions or 10)
         metrics = calculate_metrics(results)
-        print("\n=== Rezultate Evaluare ===")
+        print("\n=== Evaluation Results ===")
         print(f"Exact Match Accuracy: {metrics['exact_match_accuracy']:.2%}")
         print(f"Execution Accuracy: {metrics['execution_accuracy']:.2%}")
-        print(f"Total Întrebări: {metrics['total_questions']}")
+        print(f"Total Questions: {metrics['total_questions']}")
         return
         
     if args.interactive:
         while True:
-            question = input("\nIntroduceți întrebarea (sau 'exit'): ")
+            question = input("\nEnter your question (or 'exit'): ")
             if question.lower() == 'exit':
                 break
             
@@ -987,7 +853,7 @@ def main():
             
             if args.feedback:
                 feedback = get_user_feedback({"question": question, "answer": state.answer})
-                print(f"Feedback salvat: {feedback}")
+                print(f"Feedback saved: {feedback}")
                 
                 if feedback['feedback_score'] < 0:
                     print("Trying to improve the answer...")
@@ -998,16 +864,16 @@ def main():
                 print(f"📊 Result: {state.result}")
     
     elif args.compare:
-        question = args.question or input("Întrebare pentru comparație: ")
+        question = args.question or input("Question for comparison: ")
         results = compare_llms(question)
         
         for model, result in results.items():
             print(f"\n=== {model.upper()} ===")
             print(f"Query: {result.get('query', 'N/A')}")
-            print(f"Răspuns: {result.get('answer', 'N/A')}")
+            print(f"Answer: {result.get('answer', 'N/A')}")
     
     else:
-        question = args.question or input("Întrebare: ")
+        question = args.question or input("Question: ")
         state = State(question=question)
         write_query_with_llm(state, args.llm)
         
