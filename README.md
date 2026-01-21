@@ -6,6 +6,10 @@ A multi-step Text-to-SQL pipeline using LangChain and LangGraph with support for
 
 This project provides a complete pipeline for converting natural language questions into SQL queries across different databases without relying on model fine-tuning. The system combines schema-aware prompting, few-shot learning, multi-LLM orchestration, and self-validation to achieve high accuracy at scale. This approach enables effective Text-to-SQL translation without requiring expensive model training or fine-tuning.
 
+## Data Model
+
+![db.png](img/db.png)
+
 ## Core Technologies
 
 | Category | Technology | Package/Module | Purpose |
@@ -108,7 +112,11 @@ python main.py --compare --question "Your question"
 python main.py --spider2-lite ./spider2-lite --max-questions 5
 ```
 
+## Why Pandas
 
+Despite Pandas' known limitations with very large datasets, it's ideal for our moderate-sized lists with thousands of entries. The combination of readable code and sufficient performance makes it the optimal choice for this specific data processing task.
+
+![1.png](img/1.png)
 ## Video Demonstration
 
 
