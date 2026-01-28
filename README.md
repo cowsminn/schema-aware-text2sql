@@ -8,7 +8,11 @@ This project provides a complete pipeline for converting natural language questi
 
 ## Data Model
 
-![db.png](img/db.png)
+![db](img/db.png)
+
+## System Arhitecture
+
+![sys](img/sys_arhitecture.png)
 
 ## Core Technologies
 
@@ -111,13 +115,19 @@ python main.py --compare --question "Your question"
 # test on 5 examples with Groq
 python main.py --spider2-lite ./spider2-lite --max-questions 5
 ```
+## Data Models
 
+The system uses **Pydantic BaseModel** classes to enforce type safety and data validation throughout the pipeline. 
+
+![data](img/data_models.png)
 ## Execution Screenshots
 
 ![1](img/2.png)
 ![2](img/3.png)
 ![3](img/4.png)
 
+## Execution Flow
+![exec](img/execution.png)
 
 ## Why Pandas
 
@@ -142,3 +152,4 @@ Despite Pandas' known limitations with very large datasets, it's ideal for our m
 - [Spider2](https://github.com/xlang-ai/Spider2)
 - [Netflix_db](https://github.com/lerocha/netflixdb)
 - [Pandas vs Polars](https://blog.jetbrains.com/pycharm/2024/07/polars-vs-pandas/)
+- [Diagrams](https://www.plantuml.com)

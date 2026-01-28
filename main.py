@@ -23,40 +23,33 @@ load_dotenv()
 # ============================================================================
 # 1. DATA MODELS
 # ============================================================================
-
+# fiecare nod din langGraph primeste un state si l modifica
 class State(BaseModel):
-    question: str
-    clarified_question: str = ""
-    is_ambiguous: bool = False
-    chain_of_thought: str = ""
-    query: str = ""
-    result: str = ""
-    answer: str = ""
-    llm_used: str = "groq"
+    question: str  #intrebarea intiala
+    clarified_question: str = "" #intrebarea clarificata
+    is_ambiguous: bool = False 
+    chain_of_thought: str = "" #analiza cot
+    query: str = ""#query generat
+    result: str = ""# rezultatul query ului
+    answer: str = "" #raspunsul final
+    llm_used: str = "groq" # ce llm am folosit
 
+# fortam llm ul sa returneze doar query sql, elimina halucinatiile, nu da texte random
 class QueryOutput(BaseModel):
     """Generated SQL query."""
     query: str = Field(description="Syntactically valid SQL query.")
 
-class FeedbackState(BaseModel):
-    question: str
-    query: str = ""
-    result: str = ""
-    answer: str = ""
-    feedback_score: int = 0
-    feedback_comment: str = ""
-
 class EvaluationResult(BaseModel):
-    question: str
-    query_ground_truth: str
-    query_generated: str
-    exact_match: bool
-    execution_accuracy: bool
+    question: str #intrebarea din benckmark
+    query_ground_truth: str # query ul corect din spider
+    query_generated: str # query ul generat de model
+    exact_match: bool 
+    execution_accuracy: bool # daca query ul generat ruleaza fara erori
 
 # ============================================================================
 # 2. PROMPT TEMPLATES 
 # ============================================================================
-
+# clasa pt centralizarea prompturilor folosite in pipeline
 class PromptManager:    
     SYSTEM_SCHEMA = """
 You are an expert Text-to-SQL system.
@@ -128,7 +121,7 @@ SQL Result: {result}
 
 Provide a clear, concise answer in English:
 """
-
+# builder patern, construim chatpromttemplate din langchain
     @staticmethod
     def get_schema_prompt():
         return ChatPromptTemplate([
@@ -160,6 +153,7 @@ Provide a clear, concise answer in English:
 # 3. DATABASE UTILITIES
 # ============================================================================
 
+# cautam baza de date in folderul db, si returnam un sqldatabase object, nu o folosesc dar o pastrez ca model
 def get_db():
     """Initialize SQLite database connection."""
     from sqlalchemy.pool import StaticPool
@@ -169,7 +163,7 @@ def get_db():
     
     engine = create_engine(
         f"sqlite:///{db_path}",
-        connect_args={'check_same_thread': False},
+        connect_args={'check_same_thread': False}, # acces multithreaded la sqlite
         poolclass=StaticPool
     )
     
@@ -181,8 +175,9 @@ def get_db():
     
     return SQLDatabase(engine, sample_rows_in_table_info=0)
 
+# extragem cateva linii de date din tabelele cheie pentru a le afisa in prompt
 def get_sample_data(db_name: str, table_name: str, limit: int = 3) -> str:
-    """Get sample data from a specific table to understand data formats."""
+    
     try:
         db_path = os.path.join(os.path.dirname(__file__), "db", f"{db_name}.sqlite")
         import sqlite3
@@ -215,9 +210,8 @@ def get_sample_data(db_name: str, table_name: str, limit: int = 3) -> str:
         
     except Exception as e:
         return f"Error getting sample data: {str(e)}"
-
+# extragem sample data din fiecare tabel, si concatenam rezultatele intr un singur string
 def get_db_with_samples():
-    """Initialize SQLite database connection with sample data context."""
     from sqlalchemy.pool import StaticPool
     from sqlalchemy import event
     
@@ -251,12 +245,14 @@ def get_db_with_samples():
     db._sample_data = sample_data
     return db
 
+# extragem numele tabelelor din schema
 def get_schema_tables(table_info: str):
     """Extract table names from schema info."""
     tables = set(re.findall(r'CREATE TABLE ["\']?(\w+)["\']?', table_info, re.IGNORECASE))
     tables.update(re.findall(r'Table:\s*["\']?(\w+)["\']?', table_info, re.IGNORECASE))
     return tables
 
+# verificam daca tabelele folosite in query exista in schema
 def validate_tables(sql: str, table_info: str):
     schema_tables = get_schema_tables(table_info)
     pattern = r'(?:FROM|JOIN)\s+["`]?(\w+)["`]?'
@@ -273,6 +269,7 @@ def validate_tables(sql: str, table_info: str):
     
     return is_valid
 
+# verificam sintaxa sql folosind sqlite3
 def validate_sql_syntax(sql: str, db_file: str) -> tuple[bool, str]:
     try:
         conn = sqlite3.connect(db_file)
@@ -286,6 +283,8 @@ def validate_sql_syntax(sql: str, db_file: str) -> tuple[bool, str]:
 # ============================================================================
 # 4. AMBIGUITY DETECTION (NODE 1)
 # ============================================================================
+# daca intrebarea este deja ambigua, dam skip, alfet facem o instanta 
+# cu groq deterministic (temperature 0) care analizeaza intrebarea si returneaza un json
 
 def detect_ambiguity(state: State):
     if state.is_ambiguous:
@@ -332,7 +331,7 @@ def detect_ambiguity(state: State):
 # ============================================================================
 # 5. CHAIN-OF-THOUGHT REASONING (NODE 2)
 # ============================================================================
-
+# generam analiza cot folosind groq, imparte intrebarea in pasi logici
 def generate_chain_of_thought(state: State):
     if not state.clarified_question:
         state.clarified_question = state.question
@@ -362,6 +361,7 @@ def generate_chain_of_thought(state: State):
 # 6. SQL GENERATION (NODE 3)
 # ============================================================================
 
+# generam sql folosind groq, 
 def write_query(state: State):
     if not state.clarified_question:
         state.clarified_question = state.question
@@ -406,6 +406,8 @@ def write_query(state: State):
     state.llm_used = "groq"
     return state
 
+# aceasi functie dar cu suport pentru mai multe llm uri
+# gemini si cohere necesita parsare text mai complexa
 def write_query_with_llm(state: State, model_type: str = "groq"):
     """Generate SQL with specified LLM."""
     if not state.clarified_question:
@@ -513,8 +515,10 @@ def write_query_with_llm(state: State, model_type: str = "groq"):
 # 7. QUERY VALIDATION & EXECUTION (NODE 4)
 # ============================================================================
 
+# cath la erorile de sintaxa si de executie sql
+# luam sql din state si il rulam pe db ul sqlite
+# folosim llm ul pentru a valida sintaxa sql inainte de rulare
 def validate_and_execute_query(state: State):
-    """Validate SQL syntax și execute query."""
     if not state.query:
         state.result = "No SQL query to execute"
         return state
@@ -545,6 +549,7 @@ def validate_and_execute_query(state: State):
 # 8. ANSWER GENERATION (NODE 5)
 # ============================================================================
 
+# convertem rezultatul sql in raspuns natural 
 def generate_answer(state: State):
     if not state.query or not state.result:
         state.answer = "Unable to answer the question because no valid SQL query could be generated."
@@ -564,48 +569,10 @@ def generate_answer(state: State):
     return state
 
 # ============================================================================
-# 9. FEEDBACK & ERROR HANDLING
+# 9. LLM MANAGEMENT
 # ============================================================================
-
-def get_user_feedback(result: dict) -> dict:
-    print(f"\n{'='*60}")
-    print(f"Question: {result.get('question', 'N/A')}")
-    print(f"Answer: {result.get('answer', 'N/A')}")
-    print(f"{'='*60}")
-    
-    feedback = input("\nIs the answer correct? (yes/no/partial): ").lower()
-    comment = input("Comments (optional): ")
-    
-    score = 1 if feedback in ["yes", "da"] else (-1 if feedback in ["no", "nu"] else 0)
-    
-    return {
-        "feedback_score": score,
-        "feedback_comment": comment
-    }
-
-def handle_negative_feedback(state: State, feedback: dict):
-    """Try alternative LLM when feedback is negative."""
-    print("\nImproving answer using alternative LLM...")
-    
-    alternative_llm = "gemini" if state.llm_used != "gemini" else "ollama"
-    
-    try:
-        write_query_with_llm(state, alternative_llm)
-        validate_and_execute_query(state)
-        generate_answer(state)
-        
-        print(f"[Success] Improved answer using {alternative_llm.upper()}")
-        return state
-    except Exception as e:
-        print(f"[Warning] Error with {alternative_llm}: {e}")
-        return state
-
-# ============================================================================
-# 10. LLM MANAGEMENT
-# ============================================================================
-
+# luam instant a llm ului in functie de modelul selectat
 def get_llm(model_type: str):
-    """Get LLM instance by type."""
     if model_type == "groq":
         return ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
     elif model_type == "ollama":
@@ -641,8 +608,10 @@ def get_llm(model_type: str):
     else:
         raise ValueError(f"Unknown model: {model_type}")
 
+# evaluam toate llm urile pe aceeasi intrebare si comparam rezultatele
+# construim un promt identic pentru toate llm urile
+# executa tot pipeline ul pentru fiecare llm
 def compare_llms(question: str):
-    """Compare SQL generation across different LLMs."""
     models = ["groq", "ollama", "ollama3.2", "ollama-qwen", "gemini", "cohere"]
     results = {}
     
@@ -784,8 +753,11 @@ def compare_llms(question: str):
 # 11. EVALUATION & BENCHMARKING
 # ============================================================================
 
+# evaluam modelul pe benchmark ul spider
+# comparam query ul generat cu cel corect din spider
+# exact match daca sql generat == sql din local character by character
 def evaluate_on_spider(spider_json_path: str, max_questions: int = 10):
-    """Evaluează pe benchmark-ul Spider."""
+    
     with open(spider_json_path, 'r') as f:
         spider_data = json.load(f)
     
@@ -814,9 +786,9 @@ def evaluate_on_spider(spider_json_path: str, max_questions: int = 10):
             print(f"Error evaluating question {i}: {e}")
     
     return results
-
+# calculam metricele de performanta
+# count la rezultate
 def calculate_metrics(results: list):
-    """Calculează metricile de evaluare."""
     total = len(results)
     exact_matches = sum(r.exact_match for r in results)
     execution_accuracies = sum(r.execution_accuracy for r in results)
@@ -827,10 +799,11 @@ def calculate_metrics(results: list):
         "total_questions": total
     }
 
+# evaluam modelul pe spider2-lite
 def evaluate_on_spider2_lite(spider2_lite_dir: str, max_questions: int = None, primary_llm: str = "groq"):
-    """Evaluează pe Spider2-Lite."""
     from pathlib import Path
     
+    #cai absolute catre fisierele necesare
     spider2_lite_path = Path(spider2_lite_dir).resolve()
     data_file = spider2_lite_path / "spider2-lite.jsonl"
     eval_script = spider2_lite_path / "evaluation_suite" / "evaluate.py"
@@ -851,12 +824,11 @@ def evaluate_on_spider2_lite(spider2_lite_dir: str, max_questions: int = None, p
     
     if localdb_count > direct_count:
         db_dir = db_dir_localdb
-        print(f"⚠️  Databases are in spider2-localdb/, but the evaluator looks in databases/")
-        print(f"💡 Run: cd {db_dir_direct} && ln -s spider2-localdb/*.sqlite .")
+        print(f" Databases are in spider2-localdb/, but the evaluator looks in databases/")
+        print(f"Run: cd {db_dir_direct} && ln -s spider2-localdb/*.sqlite .")
     else:
         db_dir = db_dir_direct
     
-    # Check SQLite databases
     if db_dir.exists():
         sqlite_files = list(db_dir.glob("*.sqlite"))
         print(f"Found {len(sqlite_files)} SQLite databases")
@@ -864,12 +836,12 @@ def evaluate_on_spider2_lite(spider2_lite_dir: str, max_questions: int = None, p
         print(f"Directory {db_dir} does not exist!")
         return None
     
-    # Load few-shot examples
+    # incarcam 2 exemple sql din /gold
     print(f"Loading few-shot examples...")
     few_shot_examples = load_few_shot_examples(eval_suite_dir, num_examples=2)
     print(f"Loaded {len(few_shot_examples)} gold SQL examples")
     
-    # Load gold SQL instance IDs
+    # extractam id urile instatelor cu sql corect din /gold/sql
     gold_sql_dir = eval_suite_dir / "gold" / "sql"
     gold_instance_ids = {f.stem for f in gold_sql_dir.glob("local*.sql")}
     print(f"Found {len(gold_instance_ids)} instances with gold SQL")
@@ -884,6 +856,8 @@ def evaluate_on_spider2_lite(spider2_lite_dir: str, max_questions: int = None, p
     
     print(f"Loaded {len(data)} total examples")
     
+    # eliminam exemplele fara db sqlite sau fara sql corect
+    # folosim doar local
     sqlite_data = []
     available_dbs = {f.stem for f in sqlite_files}
     skipped_count = 0
@@ -919,6 +893,7 @@ def evaluate_on_spider2_lite(spider2_lite_dir: str, max_questions: int = None, p
     predictions = []
     llm_fallback = None
     
+    # structura pe care o sa rulam fiecare item
     for i, item in enumerate(sqlite_data):
         instance_id = item['instance_id']
         db_id = item['db']
@@ -954,14 +929,15 @@ def evaluate_on_spider2_lite(spider2_lite_dir: str, max_questions: int = None, p
             schema_text = "\n\n".join(schema_info)
             print(f"   {len(tables)} tables: {', '.join(tables[:4])}{'...' if len(tables) > 4 else ''}")
             
-            # Few-shot text
             few_shot_text = ""
             if few_shot_examples:
                 few_shot_text = "\n\nExample SQL queries:\n\n"
                 for ex in few_shot_examples:
                     few_shot_text += f"{ex['sql'][:200]}...\n\n"
             
-            # Enhanced prompt
+            # fortam llm ul sa foloseasca doar tabelele din db
+            # ofera tipuri de coloane
+            # arata 2 exemple sql
             prompt_text = f"""You are an expert SQL query generator specializing in complex analytical queries.
 
 CRITICAL INSTRUCTIONS:
@@ -1016,7 +992,7 @@ Generate a complete, executable SQL query:"""
                 else:
                     raise primary_error
             
-            # Clean SQL
+            # curatam SQL generat
             generated_sql = re.sub(r'^```[\w]*', '', generated_sql, flags=re.MULTILINE)
             generated_sql = re.sub(r'```$', '', generated_sql, flags=re.MULTILINE)
             generated_sql = re.sub(r'^(SQL|Query):\s*', '', generated_sql, flags=re.IGNORECASE | re.MULTILINE)
@@ -1045,7 +1021,7 @@ Generate a complete, executable SQL query:"""
                 "instance_id": instance_id,
                 "SQL": ""
             })
-    
+    # salvam predictiile in formatul necesar evaluarii spider2-lite
     pred_file = Path("spider2_lite_predictions.jsonl")
     pred_dir = Path("spider2_lite_predictions")
     
@@ -1070,6 +1046,7 @@ Generate a complete, executable SQL query:"""
     print("Running official Spider2-Lite evaluation...")
     print("="*60)
     
+    # rulam scriptul de evaluare oficial din spider2-lite
     import subprocess
     import sys
     
@@ -1158,6 +1135,10 @@ def load_few_shot_examples(eval_suite_dir: Path, num_examples: int = 3):
 # 12. LANGGRAPH STATE MACHINE
 # ============================================================================
 
+# state graph directioant cu 5 noduri de procesare
+# (detectie ambiguitate, cot, generare sql, validare sql, generare raspuns)
+# cream graful de procesare cu clasa state care va trece intre noduri si fiecare nod o modifica
+
 def create_text2sql_graph(use_cot: bool = True):
     graph_builder = StateGraph(State)
     
@@ -1182,32 +1163,14 @@ def create_text2sql_graph(use_cot: bool = True):
     
     return graph_builder.compile()
 
+# executam pipeline ul complet
 def run_pipeline(question: str, use_cot: bool = True):
-    """Run the complete Text-to-SQL pipeline."""
     graph = create_text2sql_graph(use_cot=use_cot)
     result = graph.invoke({"question": question})
     return result
 
-def run_pipeline_with_feedback(question: str, use_cot: bool = True):
-    """Run pipeline with feedback loop."""
-    result = run_pipeline(question, use_cot=use_cot)
-    feedback = get_user_feedback({
-        "question": result.get("question"),
-        "answer": result.get("answer")
-    })
-    
-    if feedback['feedback_score'] < 0:
-        print("\nImproving answer based on feedback...")
-        improved_state = State(question=result["question"])
-        improved_state.clarified_question = result["question"]
-        improved_state = handle_negative_feedback(improved_state, feedback)
-        
-        return improved_state, feedback
-    
-    return result, feedback
-
 # ============================================================================
-# 13. CLI INTERFACE
+# 12. CLI INTERFACE
 # ============================================================================
 
 def main():
@@ -1215,7 +1178,6 @@ def main():
     parser.add_argument("--question", type=str, help="natural language question")
     parser.add_argument("--compare", action="store_true", help="compare different LLMs")
     parser.add_argument("--interactive", action="store_true", help="interactive mode")
-    parser.add_argument("--feedback", action="store_true", help="enable feedback loop")
     parser.add_argument("--evaluate", type=str, help="path to Spider JSON file")
     parser.add_argument("--spider2-lite", type=str, help="path to Spider2-Lite directory")
     parser.add_argument("--max-questions", type=int, default=None, help="maximum questions")
@@ -1265,18 +1227,7 @@ def main():
                 break
             
             result = run_pipeline(question, use_cot=not args.no_cot)
-            
-            if args.feedback:
-                feedback = get_user_feedback({
-                    "question": question,
-                    "answer": result.get("answer")
-                })
-                
-                if feedback['feedback_score'] < 0:
-                    state = State(question=question)
-                    state.clarified_question = question
-                    state = handle_negative_feedback(state, feedback)
-                    print(f"\nImproved Answer:\n{state.answer}")
+            print(f"\nAnswer: {result.get('answer', 'No answer generated')}")
     
     elif args.compare:
         question = args.question or input("Question for comparison: ")
@@ -1296,13 +1247,7 @@ def main():
     else:
         question = args.question or input("\nQuestion: ")
         result = run_pipeline(question, use_cot=not args.no_cot)
-        
-        if args.feedback:
-            feedback = get_user_feedback({
-                "question": question,
-                "answer": result.get("answer")
-            })
-            print(f"Feedback score: {feedback['feedback_score']}")
+        print(f"\nAnswer: {result.get('answer', 'No answer generated')}")
 
 if __name__ == "__main__":
     main()
